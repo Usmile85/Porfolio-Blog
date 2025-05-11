@@ -51,31 +51,16 @@ st_lottie(lottie_animation, height=300, key="analytics")
 # Gold price chart section
 st.markdown("## 🪙 Gold Price Trend (2005–2025)")
 st.write("""
-Gold has historically functioned as a financial anchor — an asset that investors turn to in times of uncertainty...
+Gold has historically functioned as a financial anchor — an asset that investors turn to in times of uncertainty, inflation, or currency instability. Between 2005 and 2025, the price of gold rose from roughly $445 per ounce to over $3,300 per ounce, driven by key global events.
 
-This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment.
+The 2008 financial crisis marked the first major surge, followed by another rally during the COVID-19 pandemic in 2020. More recently, concerns about inflation, fiat currency debasement, and geopolitical tensions have fueled gold’s continued appreciation.
+
+This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment. For data scientists and fintech professionals, tracking assets like gold provides deeper context when modeling risk, predicting inflation, or assessing macroeconomic impacts.
 """)
 
-# Hybrid logic: Try local file, fallback to GitHub URL
-from PIL import UnidentifiedImageError
+# ✅ Load image from Imgur
+st.image("https://i.imgur.com/W30xpb4.png", caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
 
-local_image_path = "assets/gold_price_trend_clean.png"
-fallback_image_url = "https://raw.githubusercontent.com/Usmile85/Porfolio-Blog/master/assets/gold_price_trend_clean.png"
-
-try:
-    # Try loading locally first
-    if os.path.exists(local_image_path):
-        local_image = Image.open(local_image_path)
-        st.image(local_image, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
-    else:
-        raise FileNotFoundError
-except (FileNotFoundError, UnidentifiedImageError):
-    # Fallback to online GitHub image
-    try:
-        st.image(fallback_image_url, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
-    except Exception as e:
-        st.warning("⚠️ Could not load gold chart image from GitHub.")
-        st.error(f"Error: {e}")
 # Blog section
 st.markdown("## 📝 Latest Blog Post")
 blog_folder = Path("blog_posts")
@@ -88,4 +73,5 @@ if posts:
 with st.spinner("Loading dashboard..."):
     time.sleep(2)
 st.success("Portfolio & blog ready to roll! 🎯")
+
 
