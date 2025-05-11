@@ -58,13 +58,9 @@ The 2008 financial crisis marked the first major surge, followed by another rall
 This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment. For data scientists and fintech professionals, tracking assets like gold provides deeper context when modeling risk, predicting inflation, or assessing macroeconomic impacts.
 """)
 
-# Safe image loading for gold price chart
-image_path = "assets/gold_price_trend_clean.png"
-if os.path.exists(image_path):
-    chart_image = Image.open(image_path)
-    st.image(chart_image, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
-else:
-    st.warning("⚠️ Gold price chart not found. Please check the image path or upload the image to the assets folder.")
+# ✅ Load image directly from GitHub to avoid MediaFileStorageError
+image_url = "https://raw.githubusercontent.com/Usmile85/Porfolio-Blog/master/assets/gold_price_trend_clean.png"
+st.image(image_url, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
 
 # Blog section
 st.markdown("## 📝 Latest Blog Post")
@@ -78,3 +74,4 @@ if posts:
 with st.spinner("Loading dashboard..."):
     time.sleep(2)
 st.success("Portfolio & blog ready to roll! 🎯")
+
