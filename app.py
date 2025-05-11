@@ -51,25 +51,31 @@ st_lottie(lottie_animation, height=300, key="analytics")
 # Gold price chart section
 st.markdown("## 🪙 Gold Price Trend (2005–2025)")
 st.write("""
-Gold has historically functioned as a financial anchor — an asset that investors turn to in times of uncertainty, inflation, or currency instability...
+Gold has historically functioned as a financial anchor — an asset that investors turn to in times of uncertainty...
 
 This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment.
 """)
 
-# Try local image first, fallback to GitHub if not found
+# Hybrid logic: Try local file, fallback to GitHub URL
+from PIL import UnidentifiedImageError
+
 local_image_path = "assets/gold_price_trend_clean.png"
-fallback_url = "https://raw.githubusercontent.com/Usmile85/Porfolio-Blog/master/assets/gold_price_trend_clean.png"
+fallback_image_url = "https://raw.githubusercontent.com/Usmile85/Porfolio-Blog/master/assets/gold_price_trend_clean.png"
 
 try:
+    # Try loading locally first
     if os.path.exists(local_image_path):
-        image = Image.open(local_image_path)
-        st.image(image, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
+        local_image = Image.open(local_image_path)
+        st.image(local_image, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
     else:
-        st.image(fallback_url, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
-except Exception as e:
-    st.warning("⚠️ Unable to load gold price chart image.")
-    st.error(f"Error: {e}")
-
+        raise FileNotFoundError
+except (FileNotFoundError, UnidentifiedImageError):
+    # Fallback to online GitHub image
+    try:
+        st.image(fallback_image_url, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
+    except Exception as e:
+        st.warning("⚠️ Could not load gold chart image from GitHub.")
+        st.error(f"Error: {e}")
 # Blog section
 st.markdown("## 📝 Latest Blog Post")
 blog_folder = Path("blog_posts")
