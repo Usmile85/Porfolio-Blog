@@ -52,7 +52,7 @@ The 2008 financial crisis marked the first major surge, followed by another rall
 This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment. For data scientists and fintech professionals, tracking assets like gold provides deeper context when modeling risk, predicting inflation, or assessing macroeconomic impacts.
 """)
 
-st.image("gold_price_trend_2005_2025.png", caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
+st.image("assets/gold_price_trend_2005_2025.png", caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
 
 # Blog section
 st.markdown("## 📝 Latest Blog Post")
