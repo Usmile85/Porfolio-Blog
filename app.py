@@ -4,6 +4,7 @@ import time
 import requests
 from pathlib import Path
 from streamlit_lottie import st_lottie
+import os
 
 # Load Lottie animation
 def load_lottieurl(url):
@@ -12,19 +13,24 @@ def load_lottieurl(url):
         return None
     return r.json()
 
-# Setup
+# Setup page
 st.set_page_config(page_title="Man_Analytics Portfolio Blog", layout="wide")
 lottie_animation = load_lottieurl("https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json")
 
 # Header layout
 col1, col2 = st.columns([1, 3])
 with col1:
-    image = Image.open("assets/usman_profile.jpg")
-    st.image(
-        image,
-        caption="Usman Idris Abdulrahman\n\nSenior Analyst and Team Lead,\nDomestic Settlement and Reconciliation",
-        use_container_width=True
-    )
+    profile_path = "assets/usman_profile.jpg"
+    if os.path.exists(profile_path):
+        profile_image = Image.open(profile_path)
+        st.image(
+            profile_image,
+            caption="Usman Idris Abdulrahman\n\nSenior Analyst and Team Lead,\nDomestic Settlement and Reconciliation",
+            use_container_width=True
+        )
+    else:
+        st.warning("⚠️ Profile image not found.")
+
 with col2:
     st.markdown("## About Me")
     st.write("""
@@ -52,8 +58,13 @@ The 2008 financial crisis marked the first major surge, followed by another rall
 This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment. For data scientists and fintech professionals, tracking assets like gold provides deeper context when modeling risk, predicting inflation, or assessing macroeconomic impacts.
 """)
 
-st.image("assets/gold_price_trend_clean.png", caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
-
+# Safe image loading for gold price chart
+image_path = "assets/gold_price_trend_clean.png"
+if os.path.exists(image_path):
+    chart_image = Image.open(image_path)
+    st.image(chart_image, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
+else:
+    st.warning("⚠️ Gold price chart not found. Please check the image path or upload the image to the assets folder.")
 
 # Blog section
 st.markdown("## 📝 Latest Blog Post")
@@ -63,7 +74,7 @@ if posts:
     latest_post = posts[0]
     st.markdown(open(latest_post, "r", encoding="utf-8").read(), unsafe_allow_html=True)
 
-# Footer
+# Footer loading effect
 with st.spinner("Loading dashboard..."):
     time.sleep(2)
 st.success("Portfolio & blog ready to roll! 🎯")
