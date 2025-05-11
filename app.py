@@ -51,16 +51,24 @@ st_lottie(lottie_animation, height=300, key="analytics")
 # Gold price chart section
 st.markdown("## 🪙 Gold Price Trend (2005–2025)")
 st.write("""
-Gold has historically functioned as a financial anchor — an asset that investors turn to in times of uncertainty, inflation, or currency instability. Between 2005 and 2025, the price of gold rose from roughly $445 per ounce to over $3,300 per ounce, driven by key global events.
+Gold has historically functioned as a financial anchor — an asset that investors turn to in times of uncertainty, inflation, or currency instability...
 
-The 2008 financial crisis marked the first major surge, followed by another rally during the COVID-19 pandemic in 2020. More recently, concerns about inflation, fiat currency debasement, and geopolitical tensions have fueled gold’s continued appreciation.
-
-This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment. For data scientists and fintech professionals, tracking assets like gold provides deeper context when modeling risk, predicting inflation, or assessing macroeconomic impacts.
+This trend reinforces the idea that gold is not just a commodity — it's a signal of market sentiment.
 """)
 
-# ✅ Load image directly from GitHub to avoid MediaFileStorageError
-image_url = "https://raw.githubusercontent.com/Usmile85/Porfolio-Blog/master/assets/gold_price_trend_clean.png"
-st.image(image_url, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
+# Try local image first, fallback to GitHub if not found
+local_image_path = "assets/gold_price_trend_clean.png"
+fallback_url = "https://raw.githubusercontent.com/Usmile85/Porfolio-Blog/master/assets/gold_price_trend_clean.png"
+
+try:
+    if os.path.exists(local_image_path):
+        image = Image.open(local_image_path)
+        st.image(image, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
+    else:
+        st.image(fallback_url, caption="Gold Price Per Ounce (2005–2025)", use_container_width=True)
+except Exception as e:
+    st.warning("⚠️ Unable to load gold price chart image.")
+    st.error(f"Error: {e}")
 
 # Blog section
 st.markdown("## 📝 Latest Blog Post")
